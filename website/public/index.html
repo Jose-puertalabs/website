@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Puerta Labs</title>
+<meta name="description" content="Puerta Labs is building a platform that connects regulated asset managers with professional investors through tokenized units of government-bond funds.">
+<meta name="theme-color" content="#E4E8EB">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<!--
+  BEFORE PUBLISHING, replace these placeholders:
+  1. hello@your-domain.com  (appears twice: contact button and contact section)
+  2. [KVK number], [registered address], [VAT number]  (footer)
+  Everything else is self-contained: no cookies, no analytics, no external fonts or scripts.
+-->
+
+<style>
+  :root {
+    --stone: #E4E8EB;
+    --ink: #12203A;
+    --muted: #46536B;
+    --cobalt: #2447C4;
+    --leaf: #1D3C99;
+    --light: #F1C76B;
+    --rule: #C3CAD3;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--stone);
+    color: var(--ink);
+    font: 17px/1.6 var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  a { color: var(--cobalt); }
+  a:focus-visible, .btn:focus-visible {
+    outline: 3px solid var(--cobalt);
+    outline-offset: 3px;
+  }
+
+  /* Header */
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 0;
+  }
+  .wordmark {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font: 600 1.35rem/1 var(--serif);
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+  .wordmark svg { width: 22px; height: 22px; }
+  .top nav a {
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 2px;
+  }
+  .top nav a:hover { color: var(--cobalt); border-color: var(--cobalt); }
+
+  /* Hero */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 56px;
+    align-items: center;
+    padding: 36px 0 80px;
+  }
+  h1 {
+    font: 600 clamp(2.5rem, 5.4vw, 4.1rem)/1.04 var(--serif);
+    letter-spacing: -0.012em;
+    margin: 0 0 26px;
+    max-width: 12em;
+  }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 34em;
+    margin: 0 0 32px;
+  }
+  .btn {
+    display: inline-block;
+    background: var(--cobalt);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 14px 24px;
+    border-radius: 4px;
+  }
+  .btn:hover { background: var(--leaf); }
+  .audience {
+    margin: 14px 0 0;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+
+  .gate {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    justify-self: end;
+    display: block;
+  }
+  .leaf { animation-duration: 1.8s; animation-delay: 0.5s; animation-fill-mode: forwards; animation-timing-function: cubic-bezier(.65, 0, .35, 1); }
+  .leaf-l { animation-name: open-left; }
+  .leaf-r { animation-name: open-right; }
+  @keyframes open-left  { to { transform: translateX(-112px); } }
+  @keyframes open-right { to { transform: translateX(112px); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .leaf { animation: none; }
+    .leaf-l { transform: translateX(-112px); }
+    .leaf-r { transform: translateX(112px); }
+    html { scroll-behavior: auto; }
+  }
+
+  /* Sections */
+  section.block {
+    border-top: 1px solid var(--rule);
+    padding: 56px 0;
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr;
+    gap: 40px;
+  }
+  h2 {
+    font: 600 1.6rem/1.2 var(--serif);
+    margin: 0;
+  }
+  .block p { margin: 0 0 1em; max-width: 36em; color: var(--muted); }
+  .block p:last-child { margin-bottom: 0; }
+
+  dl { margin: 0; display: grid; gap: 30px; }
+  dt { font-weight: 700; margin-bottom: 4px; }
+  dd { margin: 0; color: var(--muted); max-width: 38em; }
+
+  .mail {
+    font: 600 1.35rem/1.3 var(--serif);
+    word-break: break-word;
+  }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 36px 0 56px;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  footer p { margin: 0 0 12px; max-width: 52em; }
+  footer .company { color: var(--ink); font-weight: 600; }
+
+  @media (max-width: 820px) {
+    .hero { grid-template-columns: 1fr; gap: 40px; padding-bottom: 56px; }
+    .gate { max-width: 260px; justify-self: start; }
+    section.block { grid-template-columns: 1fr; gap: 20px; padding: 44px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="wordmark" href="#top" aria-label="Puerta Labs, home">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 60V30a20 20 0 0 1 40 0v30h-8V30a12 12 0 0 0-24 0v30z" fill="currentColor"/></svg>
+      Puerta Labs
+    </a>
+    <nav aria-label="Primary"><a href="#contact">Contact</a></nav>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div>
+        <h1>One door into European sovereign debt.</h1>
+        <p class="lede">Puerta is a platform in development that will connect regulated asset managers with professional investors through tokenized units of government-bond funds.</p>
+        <a class="btn" href="mailto:hello@your-domain.com?subject=Puerta%20Labs%20enquiry">Contact us</a>
+        <p class="audience">For asset managers, custodians and institutional partners. We are building the first version and looking for asset manager partners.</p>
+      </div>
+
+      <svg class="gate" viewBox="0 0 400 520" role="img" aria-label="An arched doorway whose doors slide open to reveal a ladder of bond maturities.">
+        <defs>
+          <clipPath id="opening"><path d="M90 520V222A110 110 0 0 1 310 222V520Z"/></clipPath>
+        </defs>
+        <g clip-path="url(#opening)">
+          <rect x="80" y="100" width="240" height="430" fill="#F1C76B"/>
+          <g fill="#12203A">
+            <rect x="90" y="270" width="60"  height="18"/>
+            <rect x="90" y="310" width="100" height="18"/>
+            <rect x="90" y="350" width="140" height="18"/>
+            <rect x="90" y="390" width="180" height="18"/>
+            <rect x="90" y="430" width="220" height="18"/>
+          </g>
+          <g class="leaf leaf-l">
+            <rect x="90" y="100" width="110" height="430" fill="#1D3C99"/>
+            <rect x="106" y="150" width="78" height="150" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="2"/>
+            <rect x="106" y="330" width="78" height="150" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="2"/>
+          </g>
+          <g class="leaf leaf-r">
+            <rect x="200" y="100" width="110" height="430" fill="#1D3C99"/>
+            <rect x="216" y="150" width="78" height="150" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="2"/>
+            <rect x="216" y="330" width="78" height="150" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="2"/>
+          </g>
+        </g>
+        <path d="M60 520V220A140 140 0 0 1 340 220V520H310V222A110 110 0 0 0 90 222V520Z" fill="#12203A"/>
+        <path d="M20 519H380" stroke="#12203A" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <section class="block" aria-labelledby="who">
+      <h2 id="who">Who does what</h2>
+      <dl>
+        <div>
+          <dt>Asset managers</dt>
+          <dd>Run the fund. The manager stays the regulated party and keeps full responsibility for the portfolio, pricing and fund documentation.</dd>
+        </div>
+        <div>
+          <dt>Professional investors</dt>
+          <dd>Subscribe to and redeem fund units at net asset value, with each unit recorded as a token. Investor onboarding and order handling are carried out by appropriately licensed entities.</dd>
+        </div>
+        <div>
+          <dt>Puerta Labs</dt>
+          <dd>Builds the technology that connects the two: token logic, the investor interface, reporting, and integration with fund registers and custodians.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="block" aria-labelledby="start">
+      <h2 id="start">Where we start</h2>
+      <div>
+        <p>We are starting with Spanish government debt and designing the format so it extends to other European sovereign issuers.</p>
+        <p>Units follow a fund's rolling portfolio of government bonds. Access is limited to professional investors.</p>
+      </div>
+    </section>
+
+    <section class="block" id="contact" aria-labelledby="contact-h">
+      <h2 id="contact-h">Contact</h2>
+      <div>
+        <p>If you manage a fund, run a custody or registry service, or invest as a professional, write to us.</p>
+        <p><a class="mail" href="mailto:hello@your-domain.com">hello@your-domain.com</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="company">Puerta Labs B.V.</p>
+    <p>KVK: [KVK number]<br>Registered address: [registered address]<br>VAT: [VAT number]</p>
+    <p>Puerta Labs B.V. is a technology company. It is not an investment firm, bank, fund manager or custodian and does not provide investment services. Nothing on this site is an offer, solicitation or advice to buy or sell any financial instrument. Tokenized fund units, where available, will be offered only by licensed entities and only to professional investors.</p>
+    <p>This website does not use cookies or analytics.</p>
+  </footer>
+</div>
+
+</body>
+</html>
