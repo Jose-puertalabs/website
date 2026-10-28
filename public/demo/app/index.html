@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Puerta app (simulated demo)</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#111111">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="sim-banner" role="note">Simulated demonstration. Example data only: no real funds, assets or transactions. Not an offer or investment advice.</div>
+
+<header class="topbar">
+  <a class="brand" href="../" aria-label="Puerta Labs demo home"><img src="../assets/logo.svg" alt="Puerta Labs" height="34"></a>
+
+  <div class="wallet-area">
+    <button id="connectBtn" class="btn btn-outline" type="button">Connect</button>
+    <div id="walletInfo" class="wallet-info" hidden>
+      <span id="chainBadge" class="badge"></span>
+      <span id="addrPill" class="addr" title=""></span>
+      <button id="disconnectBtn" class="btn-link" type="button">Disconnect</button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <!-- Not connected -->
+  <section id="viewDisconnected" class="intro">
+    <div class="intro-text">
+      <h1>Connect a wallet to open the door.</h1>
+      <p class="lede">This prototype shows how a professional investor could subscribe to, redeem and pledge units of a tokenised euro government-bond fund. All data is simulated.</p>
+      <ul class="plain-list">
+        <li>Your wallet is only used to show your address and network. The demo never asks for a signature or a transaction.</li>
+        <li>No wallet? Use the simulated demo wallet.</li>
+      </ul>
+      <button id="connectBtn2" class="btn btn-primary" type="button">Connect wallet</button>
+    </div>
+
+    <svg id="gate" class="gate" viewBox="0 0 400 520" role="img" aria-label="A closed arched door. It opens when a wallet is connected.">
+      <defs><clipPath id="opening"><path d="M90 520V222A110 110 0 0 1 310 222V520Z"/></clipPath></defs>
+      <g clip-path="url(#opening)">
+        <rect x="80" y="100" width="240" height="430" fill="#003399"/>
+        <g fill="#FFCC00">
+          <rect x="90" y="270" width="60"  height="18"/>
+          <rect x="90" y="310" width="100" height="18"/>
+          <rect x="90" y="350" width="140" height="18"/>
+          <rect x="90" y="390" width="180" height="18"/>
+          <rect x="90" y="430" width="220" height="18"/>
+        </g>
+        <g class="leaf leaf-l">
+          <rect x="90" y="100" width="110" height="430" fill="#2B2B2B"/>
+          <rect x="106" y="150" width="78" height="150" fill="none" stroke="#D0D0D0" stroke-opacity=".28" stroke-width="2"/>
+          <rect x="106" y="330" width="78" height="150" fill="none" stroke="#D0D0D0" stroke-opacity=".28" stroke-width="2"/>
+        </g>
+        <g class="leaf leaf-r">
+          <rect x="200" y="100" width="110" height="430" fill="#242424"/>
+          <rect x="216" y="150" width="78" height="150" fill="none" stroke="#D0D0D0" stroke-opacity=".28" stroke-width="2"/>
+          <rect x="216" y="330" width="78" height="150" fill="none" stroke="#D0D0D0" stroke-opacity=".28" stroke-width="2"/>
+        </g>
+      </g>
+      <path d="M60 520V220A140 140 0 0 1 340 220V520H310V222A110 110 0 0 0 90 222V520Z" fill="#D0D0D0"/>
+      <path d="M20 519H380" stroke="#D0D0D0" stroke-width="2"/>
+    </svg>
+  </section>
+
+  <!-- Connected -->
+  <section id="viewConnected" hidden>
+
+    <ul class="status" aria-label="Access status">
+      <li id="stWallet" class="chip">Wallet connected</li>
+      <li id="stVerify" class="chip">Professional investor check</li>
+      <li id="stList" class="chip">Wallet whitelisted</li>
+      <li class="status-action">
+        <button id="verifyBtn" class="btn btn-primary btn-small" type="button">Run simulated verification</button>
+        <button id="resetBtn" class="btn-link" type="button">Reset demo</button>
+      </li>
+    </ul>
+
+    <div class="layout">
+
+      <div class="main-col">
+        <section class="panel" aria-labelledby="fundTitle">
+          <h2 id="fundTitle">Example Euro Government Bond Fund, class P</h2>
+          <p class="muted">An illustrative fund. The name, manager and figures are placeholders.</p>
+
+          <dl class="facts">
+            <div><dt>Structure</dt><dd>Open-ended fund, professional investors only</dd></div>
+            <div><dt>Exposure</dt><dd>Rolling basket of euro government bonds</dd></div>
+            <div><dt>Treatment</dt><dd>Accumulating</dd></div>
+            <div><dt>Dealing</dt><dd>Daily, priced at the next NAV</dd></div>
+            <div><dt>Units</dt><dd>Recorded by an authorised registry provider as tokens</dd></div>
+            <div><dt>Latest NAV</dt><dd><span id="navValue" class="num"></span> per unit <span id="navDate" class="muted"></span></dd></div>
+          </dl>
+
+          <figure class="nav-figure">
+            <svg id="navChart" viewBox="0 0 600 130" role="img" aria-label="Simulated NAV per unit over the last 90 days, rising slowly."></svg>
+            <figcaption class="muted">Simulated NAV per unit, last 90 days</figcaption>
+          </figure>
+        </section>
+
+        <section class="panel" aria-labelledby="actTitle">
+          <h2 id="actTitle">Trade</h2>
+
+          <div class="tabs" role="tablist" aria-label="Actions">
+            <button class="tab" role="tab" id="tab-subscribe" aria-controls="panel-subscribe" aria-selected="true" data-tab="subscribe" type="button">Subscribe</button>
+            <button class="tab" role="tab" id="tab-redeem" aria-controls="panel-redeem" aria-selected="false" data-tab="redeem" type="button" tabindex="-1">Redeem</button>
+            <button class="tab" role="tab" id="tab-pledge" aria-controls="panel-pledge" aria-selected="false" data-tab="pledge" type="button" tabindex="-1">Pledge as collateral</button>
+          </div>
+
+          <div id="panel-subscribe" role="tabpanel" aria-labelledby="tab-subscribe" class="tabpanel">
+            <label class="field" for="subAmount">Amount to subscribe (EUR)</label>
+            <input id="subAmount" class="input" type="number" inputmode="decimal" min="0" step="1000" placeholder="50000">
+            <p class="hint">Minimum EUR 10,000 in this demo. Cash is paid to the fund's account at the depositary, never to Puerta.</p>
+            <p id="subQuote" class="quote" aria-live="polite"></p>
+            <p id="subError" class="error" role="alert"></p>
+            <button id="subBtn" class="btn btn-primary" type="button">Place subscription order</button>
+          </div>
+
+          <div id="panel-redeem" role="tabpanel" aria-labelledby="tab-redeem" class="tabpanel" hidden>
+            <label class="field" for="redUnits">Units to redeem</label>
+            <div class="input-row">
+              <input id="redUnits" class="input" type="number" inputmode="decimal" min="0" step="0.0001" placeholder="0">
+              <button id="redMax" class="btn btn-ghost" type="button">Max</button>
+            </div>
+            <p class="hint">Units pledged as collateral cannot be redeemed until released.</p>
+            <p id="redQuote" class="quote" aria-live="polite"></p>
+            <p id="redError" class="error" role="alert"></p>
+            <button id="redBtn" class="btn btn-primary" type="button">Place redemption order</button>
+          </div>
+
+          <div id="panel-pledge" role="tabpanel" aria-labelledby="tab-pledge" class="tabpanel" hidden>
+            <label class="field" for="pledgeCp">Approved counterparty</label>
+            <select id="pledgeCp" class="input"></select>
+            <label class="field" for="pledgeUnits">Units to pledge</label>
+            <input id="pledgeUnits" class="input" type="number" inputmode="decimal" min="0" step="0.0001" placeholder="0">
+            <p class="hint">Only whitelisted counterparties can receive units. Pledged units stay in your wallet but are locked.</p>
+            <p id="pledgeQuote" class="quote" aria-live="polite"></p>
+            <p id="pledgeError" class="error" role="alert"></p>
+            <button id="pledgeBtn" class="btn btn-primary" type="button">Pledge units</button>
+          </div>
+
+          <div id="tracker" class="tracker" aria-live="polite" hidden>
+            <h3 id="trackerTitle"></h3>
+            <ol id="trackerSteps" class="steps"></ol>
+          </div>
+        </section>
+      </div>
+
+      <aside class="side-col" aria-label="Portfolio">
+        <section class="panel" aria-labelledby="pfTitle">
+          <h2 id="pfTitle">Your position</h2>
+          <dl class="metrics">
+            <div><dt>Units held</dt><dd id="mUnits" class="num">0.0000</dd></div>
+            <div><dt>Value at latest NAV</dt><dd id="mValue" class="num">EUR 0.00</dd></div>
+            <div><dt>Available</dt><dd id="mAvail" class="num">0.0000</dd></div>
+            <div><dt>Pledged</dt><dd id="mPledged" class="num">0.0000</dd></div>
+            <div><dt>Credit line unlocked</dt><dd id="mCredit" class="num">EUR 0.00</dd></div>
+          </dl>
+        </section>
+
+        <section class="panel" aria-labelledby="plTitle">
+          <h2 id="plTitle">Pledges</h2>
+          <ul id="pledgeList" class="rows"></ul>
+          <p id="pledgeEmpty" class="muted">No units pledged.</p>
+        </section>
+
+        <section class="panel" aria-labelledby="acTitle">
+          <h2 id="acTitle">Activity</h2>
+          <ul id="activityList" class="rows"></ul>
+          <p id="activityEmpty" class="muted">Nothing yet.</p>
+        </section>
+      </aside>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p>Everything on this page is simulated. Nothing here is an offer, solicitation or advice to buy or sell any financial instrument. Credit lines, haircuts and counterparties are examples only.</p>
+  <p>Puerta Labs B.V.</p>
+</footer>
+
+<dialog id="connectDialog" aria-labelledby="dlgTitle">
+  <h2 id="dlgTitle">Connect a wallet</h2>
+  <p class="muted">The demo reads your address and network only. It never requests a signature or a transaction.</p>
+  <div class="options">
+    <button id="optBrowser" class="option" type="button">
+      <span class="option-title">Browser wallet</span>
+      <span class="option-sub">MetaMask or any other EVM wallet in your browser</span>
+    </button>
+    <button id="optDemo" class="option" type="button">
+      <span class="option-title">Simulated demo wallet</span>
+      <span class="option-sub">A made-up address, no wallet needed</span>
+    </button>
+    <div class="option option-off" aria-disabled="true">
+      <span class="option-title">Cardano and Solana wallets</span>
+      <span class="option-sub">Not available in this prototype</span>
+    </div>
+  </div>
+  <p id="dlgMsg" class="error" role="alert"></p>
+  <button id="dlgClose" class="btn btn-ghost" type="button">Cancel</button>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
