@@ -16,7 +16,43 @@ website/
 
 Only the `public/` folder is published. Nothing else in this repository is visible on the website.
 
-## Editing the site
+## Investment application demo
+
+The landing page remains at `/`. Its **Go to app** link opens `/app/`.
+The app uses plain HTML, CSS and JavaScript modules, with no runtime dependencies or build step.
+Hash routes (`/app/#/explore` and `/app/#/fund/spanish-sovereign`) work on GitHub Pages, including direct links and refreshes.
+
+With Node.js 22 or newer installed:
+
+```sh
+npm run dev
+```
+
+On Windows PowerShell with script execution restricted, use `npm.cmd run dev`, `npm.cmd run check` and `npm.cmd test`.
+
+Open http://127.0.0.1:4173 (landing) or http://127.0.0.1:4173/app/ (app).
+Use an HTTP server rather than opening the app as a local file, because it uses JavaScript modules.
+
+```sh
+npm run check
+npm test
+```
+
+`check` runs JavaScript syntax checks; tests cover fund data, filters, sorting and subscription arithmetic.
+There is no configured linter, TypeScript checker or build command. GitHub Pages continues to publish `public/` directly.
+
+App files:
+
+- `public/app/index.html`: accessible application shell and loading state.
+- `public/app/app.css`: responsive styles using the existing Puerta palette and type families.
+- `public/app/funds.js`: centralized fictional funds, formatting, selection and calculation functions.
+- `public/app/app.js`: Explore table, reusable fund details, tabs, charts, routing and simulated subscriptions.
+
+All 16 funds, bond positions, NAV paths and allocations are fictional. Summary analytics are independently illustrative, not calculated from a priced portfolio. Risk labels are internal demo categories. Documents are planned placeholders. AUM sorting compares numeric amounts in each fund's local currency without FX conversion. No return or distribution is projected. No wallet, payments, backend, portfolio dashboard or actual subscriptions are implemented.
+
+The existing policy below describes the public landing page. This explicitly requested application is a fictional product demo, not a live fund offering. Review it before any publication; changes are not automatically pushed by local development.
+
+## Editing the landing page
 
 1. Open `public/index.html` on GitHub and click the pencil icon.
 2. Change the text between the tags, then commit to `main`.

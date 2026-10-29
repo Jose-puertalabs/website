@@ -1,0 +1,10 @@
+{
+  "name": "puerta-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.js",
+    "check": "node --check public/app/app.js && node --check public/app/funds.js && node --check scripts/serve.js",
+    "test": "node --test"
+  }
+}
